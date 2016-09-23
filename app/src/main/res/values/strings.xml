@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">BatteryNotifier</string>
+    <string name="notification">Notification</string>
+    <string name="app_settings">Application Settings</string>
+    <string name="charging_fast">Charging Fast</string>
+    <string name="charging_slow">Charging Slow</string>
+    <string name="msg_will_notify_on_charge_full">will notify you when battery is full charged.</string>
+    <string name="power_disconnected">Power Disconnected</string>
+</resources>
