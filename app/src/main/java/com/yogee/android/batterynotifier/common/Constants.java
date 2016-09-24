@@ -8,4 +8,5 @@ public class Constants {
     //application constants
     public static final int BATTERY_CHECK_ALARM_ID = 141414;
     public static final int FULL_BATTERY_LEVEL = 100;
+    public static final int NOTIFICATION_ID = 151515;
 }

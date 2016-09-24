@@ -1,13 +1,19 @@
 package com.yogee.android.batterynotifier.common;
 
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.BatteryManager;
+import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
 
+import com.yogee.android.batterynotifier.R;
 import com.yogee.android.batterynotifier.receivers.BatteryLevelCheckReceiver;
 
 /**
@@ -17,20 +23,22 @@ public class AppUtils {
 
     /**
      * shows short length toast
+     *
      * @param context
      * @param message
      */
-    public static void showShortToast (Context context, String message) {
+    public static void showShortToast(Context context, String message) {
         Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
         toast.show();
     }
 
     /**
      * shows long length toast
+     *
      * @param context
      * @param message
      */
-    public static void showLongToast (Context context, String message) {
+    public static void showLongToast(Context context, String message) {
         Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
         toast.show();
     }
@@ -66,5 +74,40 @@ public class AppUtils {
         AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarm.cancel(pIntent);
         alarm.set(AlarmManager.RTC_WAKEUP, startTimeInMillis, pIntent);
+    }
+
+    /**
+     * @param minutes
+     * @return milliseconds
+     */
+    public static long getMilliSeconds(int minutes) {
+        return 1000 * 60 * minutes;
+    }
+
+    /**
+     *
+     * @param context
+     */
+    public static void showNotification(Context context){
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        mBuilder.setContentTitle(context.getResources().getString(R.string.app_name));
+        mBuilder.setContentText(context.getResources().getString(R.string.notification_text));
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(Constants.NOTIFICATION_ID, mBuilder.build());
+    }
+
+    /**
+     *
+     * @param context
+     */
+    public static void playNotificationTone(Context context){
+        try {
+            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            Ringtone r = RingtoneManager.getRingtone(context.getApplicationContext(), notification);
+            r.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
